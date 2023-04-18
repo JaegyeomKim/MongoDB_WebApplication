@@ -18,6 +18,5 @@ namespace MongoDB_WebApplication.Models
         public string Link { get; set; } = String.Empty;
         [BsonElement("price")]
         public string Price { get; set; } = String.Empty;
-
     }
 }
