@@ -44,9 +44,25 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Cors": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Hosting": {
+              "target": "Package",
+              "version": "[2.2.7, )"
+            },
+            "Microsoft.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[7.0.1, )"
+            },
             "MongoDB.Driver": {
               "target": "Package",
               "version": "[2.19.1, )"
+            },
+            "ServiceStack.Text": {
+              "target": "Package",
+              "version": "[6.8.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

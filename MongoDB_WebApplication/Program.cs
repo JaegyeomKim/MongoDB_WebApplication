@@ -1,11 +1,23 @@
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using MongoDB_WebApplication.Models;
 using MongoDB_WebApplication.Services;
 
+
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("http://localhost:3000",
+                                              "http://www.contoso.com");
+                      });
+});
 
 builder.Services.Configure<ProjectStoreDatabaseSetting>(
                 builder.Configuration.GetSection(nameof(ProjectStoreDatabaseSetting)));
@@ -31,7 +43,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(Path.Combine(builder.Environment.ContentRootPath, "Images")),
+    RequestPath = "/Images"
+});
 app.UseHttpsRedirection();
+
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseAuthorization();
 
