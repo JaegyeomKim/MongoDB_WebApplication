@@ -24,11 +24,6 @@ namespace MongoDB_WebApplication.Controllers
         public ActionResult<List<Product>> Get()
         {
             var products = productService.Get();
-            foreach (var item in products)
-            {
-                item.ImageSrc = String.Format("{0}://{1}{2}/Images/{3}", Request.Scheme, Request.Host, Request.PathBase, item.ImageName);
-            }
-
             return products;
         }
 
@@ -40,7 +35,6 @@ namespace MongoDB_WebApplication.Controllers
             {
                 return NotFound($"Product with ID = {id} not found");
             }
-            product.ImageSrc = String.Format("{0}://{1}{2}/Images/{3}", Request.Scheme, Request.Host, Request.PathBase, product.ImageName);
             return product;
         }
 
@@ -85,18 +79,6 @@ namespace MongoDB_WebApplication.Controllers
             return Ok($"Product with ID = {id} deleted");
         }
 
-        [NonAction]
-        public string SaveImage(IFormFile imageFile)
-        {
-            string imageName = new String(Path.GetFileNameWithoutExtension(imageFile.FileName).Take(10).ToArray()).Replace(' ', '-');
-            imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(imageFile.FileName);
-            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, "Images", imageName);
-            using (var fileStream = new FileStream(imagePath, FileMode.Create))
-            {
-                imageFile.CopyToAsync(fileStream);
-            }
-            return imageName;
-        }
 
         //[HttpGet("{page}")]
         //public ActionResult<List<Product>> GetProducts(int page)

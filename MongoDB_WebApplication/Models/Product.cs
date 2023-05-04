@@ -12,11 +12,7 @@ namespace MongoDB_WebApplication.Models
         public string ProductName { get; set; } = String.Empty;
         [BsonElement("description")]
         public string Description { get; set; } = String.Empty;
-        [BsonElement("imageName")]
-        public string ImageName { get; set; } = String.Empty;
-
-        public IFormFile ?ImageFile { get; set; }
-        public string ?ImageSrc { get; set; }
-
+        [BsonElement("imageAccessNumber")]
+        public string ImageAccessNumber { get; set; } = String.Empty;
     }
 }
