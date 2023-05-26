@@ -8,6 +8,8 @@ namespace MongoDB_WebApplication.Models
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; } = String.Empty;
+        [BsonElement("sequences")]
+        public string Sequences { get; set; } = String.Empty;
         [BsonElement("productName")]
         public string ProductName { get; set; } = String.Empty;
         [BsonElement("description")]
